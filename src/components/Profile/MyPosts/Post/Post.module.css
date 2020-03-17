@@ -1,0 +1,22 @@
+.item {
+    background-color: #999;
+    padding: 5px;
+    margin: 5px 10px;
+
+}
+.item:after {
+    content		: ".";
+    visibility	: hidden;
+    display		: block;
+    height		: 0;
+    clear		: both;
+}
+
+
+
+.likeCount {
+    float: right;
+}
+.item:hover {
+    background-color: burlywood;
+}

@@ -1,0 +1,26 @@
+.navbar {
+    grid-area: sidebar;
+    background-color: beige;
+}
+
+ a {
+    color: darkolivegreen;
+    text-decoration: none;
+}
+
+
+a.active {
+    background-color: #999999;
+}
+
+.navbar ul {
+    padding-left: 5px;
+}
+
+.navbar li {
+    list-style-type: none;
+}
+
+.navbar li:hover {
+    color: darkolivegreen;
+}

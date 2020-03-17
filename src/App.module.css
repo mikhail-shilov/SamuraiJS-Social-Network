@@ -1,0 +1,26 @@
+.appWrapper {
+  width: 1200px;
+  margin: 0 auto;
+  display: grid;
+
+  grid-template-areas:
+          "header header"
+          "sidebar content";
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
+
+}
+
+main {
+  grid-area: content;
+  background-color: blueviolet;
+}
+
+
+
+.content img {
+  display: block;
+  max-width: 520px;
+  margin: 0 10px;
+}
