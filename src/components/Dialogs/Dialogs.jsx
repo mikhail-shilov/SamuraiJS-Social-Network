@@ -1,6 +1,10 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import css from './Dialogs.module.css';
+import {addMessageActionCreator, updateMessageDraftActionCreator} from "../../redux/state";
+
+
+
 
 const Dialog = (props) => {
     const path = '/dialogs/' + props.link;
@@ -18,6 +22,15 @@ const Message = (props) => {
 }
 
 const Dialogs = (props) => {
+    let newReplica = React.createRef();
+    const draftReplica = () => {
+        const text = newReplica.current.value;
+        props.dispatch(updateMessageDraftActionCreator(text));
+    }
+    const addReplica = () => {
+        const text = newReplica.current.value;
+        props.dispatch(addMessageActionCreator(text));
+    }
 
 
     const dialogsElements = props.dialogs.map(dialog => <Dialog name={dialog.name} link={dialog.id}/>);
@@ -32,6 +45,10 @@ const Dialogs = (props) => {
                 </div>
                 <div className={css.messages}>
                     {messagesElements}
+                    <div>
+                        <textarea ref={newReplica} onChange={draftReplica} value={props.value} placeholder='I HATE U!!11!11!'/>
+                        <button onClick={addReplica}>Послать</button>
+                    </div>
                 </div>
             </div>
         </div>
