@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {BrowserRouter} from "react-router-dom";
 
-import store from './redux/state'
+import store from './redux/store'
 import App from './App';
 
 const updateDOM = (state) => {
@@ -22,7 +22,10 @@ const updateDOM = (state) => {
 
 updateDOM(store.getState());
 
-store.callSubscriber(updateDOM);
+store.subscribe(() => {
+    const state = store.getState();
+    updateDOM(state);
+});
 
 
 // If you want your app to work offline and load faster, you can change

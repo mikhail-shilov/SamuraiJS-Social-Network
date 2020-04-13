@@ -19,13 +19,13 @@ const MyPosts = (props) => {
 
     return (
         <div className={css.feed}>
-            <h3>My feed</h3>
+            <div className={css.item}><h3>Самоизолента:</h3></div>
             <div className={css.item}>
                 <textarea
                     ref={newPostData}
                     onChange={postUpdate}
                     value={props.value}
-                    placeholder='Что твориться?'
+                    placeholder='Что (твориться)?'
                 />
             </div>
             <button onClick={addPost}>Submit</button>
