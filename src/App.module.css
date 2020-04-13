@@ -14,7 +14,7 @@
 
 main {
   grid-area: content;
-  background-color: blueviolet;
+  background-color: #eee; /*blueviolet*/
 }
 
 

@@ -1,0 +1,25 @@
+.cover {
+    display: flex;
+    align-items: center;     /*Центрирование по вертикали */
+
+    height: 150px;
+    background-image: url("https://klike.net/uploads/posts/2019-01/1547367975_11.jpg") ;
+    background-position: center;
+    background-color: aquamarine;
+}
+.cover a {
+    color: white;
+    margin: auto 0.5em ;
+}
+.ava {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    float: left;
+}
+.item {
+    background-color: #999;
+    padding: 5px;
+    margin: 5px 10px;
+
+}

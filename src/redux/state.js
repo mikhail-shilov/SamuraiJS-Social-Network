@@ -1,3 +1,6 @@
+import dialogReducer from "./dialog-reducer";
+import profileReducer from "./profile-reducer";
+
 let store = {
     _state: {
         dialogsPage: {
@@ -41,66 +44,13 @@ let store = {
     },
 
     dispatch(action) {
-        if (action.type === 'UPDATE-DRAFT') {
-            this._draftPostUpdate(action.text);
-        }
-        if (action.type === 'ADD-POST') {
-            this._addPost();
-        }
-        if (action.type === 'UPDATE-MESSAGE-DRAFT') {
-            this._draftMessageUpdate(action.text);
-        }
-        if (action.type === 'ADD-MESSAGE') {
-            this._addMessage();
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogReducer(this._state.dialogsPage, action);
+        this._updateDOM(this._state);
     },
-
-        _draftPostUpdate(text) {
-            this._state.profilePage.draftPost = text;
-            this._updateDOM(this.getState());
-        },
-
-        _addPost() {
-            let newPost = {
-                id: 5,
-                message: this._state.profilePage.draftPost,
-                likeCount: 3
-            };
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.draftPost = '';
-            this._updateDOM(this.getState());
-        },
-        _draftMessageUpdate(text) {
-            this._state.dialogsPage.draftMessage = text;
-            this._updateDOM(this.getState());
-        },
-
-        _addMessage() {
-            let newMessage = {
-                msg: this._state.dialogsPage.draftMessage,
-                id: 9
-            };
-            this._state.dialogsPage.messages.push(newMessage);
-            this._state.dialogsPage.draftMessage = '';
-            this._updateDOM(this.getState());
-        },
-
-
-
 };
 
-export const addPostActionCreator = () => {
-    return { type: 'ADD-POST' };
-};
-export const updateDraftActionCreator = (text) => {
-    return { type: 'UPDATE-DRAFT', text: text };
-};
-export const addMessageActionCreator = () => {
-    return { type: 'ADD-MESSAGE' };
-};
-export const updateMessageDraftActionCreator = (text) => {
-    return { type: 'UPDATE-MESSAGE-DRAFT', text: text };
-};
+
 
 
 

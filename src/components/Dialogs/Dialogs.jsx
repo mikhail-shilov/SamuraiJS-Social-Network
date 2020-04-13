@@ -1,7 +1,7 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
 import css from './Dialogs.module.css';
-import {addMessageActionCreator, updateMessageDraftActionCreator} from "../../redux/state";
+import {addMessageActionCreator, updateMessageDraftActionCreator} from "../../redux/dialog-reducer";
 
 
 

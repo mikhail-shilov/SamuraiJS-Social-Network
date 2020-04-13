@@ -1,6 +1,7 @@
 import React from "react";
-import Post from './Post/Post'
-import {addPostActionCreator, updateDraftActionCreator} from "../../../redux/state";
+import Post from './Post/Post';
+import css from './MyPosts.module.css';
+import {addPostActionCreator, updateDraftActionCreator} from "../../../redux/profile-reducer";
 
 const MyPosts = (props) => {
     let newPostData = React.createRef();
@@ -17,14 +18,16 @@ const MyPosts = (props) => {
     const posts = props.posts.map(post => <Post msg={post.message} likes={post.likeCount}/>);
 
     return (
-        <div>
+        <div className={css.feed}>
             <h3>My feed</h3>
-            <textarea
-                ref={newPostData}
-                onChange={postUpdate}
-                value={props.value}
-                placeholder='Что твориться?'
-            />
+            <div className={css.item}>
+                <textarea
+                    ref={newPostData}
+                    onChange={postUpdate}
+                    value={props.value}
+                    placeholder='Что твориться?'
+                />
+            </div>
             <button onClick={addPost}>Submit</button>
             <div>
                 {posts}

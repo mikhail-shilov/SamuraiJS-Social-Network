@@ -1,0 +1,21 @@
+.feed {
+    box-sizing: border-box;
+
+}
+.item {
+    background-color: #eee;
+    padding: 5px 15px;
+    margin: 5px 10px;
+}
+.item textarea {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 5px 15px;
+    display: block;
+    margin: 0.5rem auto;
+    resize: none;
+}
+.feed button {
+    display: block;
+    margin: 0.6rem auto 1.3rem auto;
+}
