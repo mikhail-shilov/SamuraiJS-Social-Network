@@ -21,17 +21,24 @@ const initialState = {
 
 const dialogReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE-MESSAGE-DRAFT':
-            state.draftMessage = action.text;
-            return state;
-        case 'ADD-MESSAGE':
+        case 'UPDATE-MESSAGE-DRAFT': {
+            let localState = {...state};
+            console.log(action);
+            localState.draftMessage = action.text;
+            return localState;
+        }
+        case 'ADD-MESSAGE': {
+            let localState = {...state};
+            localState.messages = [...state.messages];
+            localState.draftMessage = state.draftMessage;
             let newMessage = {
                 msg: state.draftMessage,
                 id: 9
             };
-            state.messages.push(newMessage);
-            state.draftMessage = '';
-            return state;
+            localState.messages.push(newMessage);
+            localState.draftMessage = '';
+            return localState;
+        }
         default:
             return state;
     }

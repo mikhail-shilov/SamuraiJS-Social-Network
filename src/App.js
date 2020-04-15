@@ -28,14 +28,8 @@ function App(props) {
                            }
                     />
                     <Route path='/dialogs'
-                           render={ () =>
-                               <Dialogs
-                                   dialogs = {props.state.dialogsPage.dialogs}
-                                   messages = {props.state.dialogsPage.messages}
-                                   value = {props.state.dialogsPage.draftMessage}
-                                   dispatch={props.dispatch}
-                               />
-                           }
+                           render={ () => <Dialogs/> }
+
                     />
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>

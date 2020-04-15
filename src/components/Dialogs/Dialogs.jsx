@@ -1,58 +1,28 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
-import css from './Dialogs.module.css';
+import {connect} from 'react-redux';
+import DialogsTemplate from "./DialogsTemplate";
 import {addMessageActionCreator, updateMessageDraftActionCreator} from "../../redux/dialog-reducer";
 
-
-
-
-const Dialog = (props) => {
-    const path = '/dialogs/' + props.link;
-    return (
-        <div className={css.dialog}>
-            <NavLink to={path} activeClassName={css.active}>{props.name}</NavLink>
-        </div>
-    );
-}
-
-const Message = (props) => {
-    return (
-        <div className={css.message}>{props.text}</div>
-    );
-}
-
-const Dialogs = (props) => {
-    let newReplica = React.createRef();
-    const draftReplica = () => {
-        const text = newReplica.current.value;
-        props.dispatch(updateMessageDraftActionCreator(text));
+const mapStateToProps = (state) => {
+    return {
+        dialogsPage: state.dialogsPage,
+        dialogs: state.dialogsPage.dialogs,
+        messages: state.dialogsPage.messages,
+        value: state.dialogsPage.draftMessage
     }
-    const addReplica = () => {
-        const text = newReplica.current.value;
-        props.dispatch(addMessageActionCreator(text));
-    }
+};
 
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        draftUpdate: (text) => {
+            dispatch(updateMessageDraftActionCreator(text));
+        },
+        addMessage: () => {
+            dispatch(addMessageActionCreator());
+        },
+    })
+};
 
-    const dialogsElements = props.dialogs.map(dialog => <Dialog name={dialog.name} link={dialog.id}/>);
-
-    const messagesElements = props.messages.map(message => <Message text={message.msg} />);
-
-    return (
-        <div>
-            <div className={css.dialogs}>
-                <div className={css.dialogsItems}>
-                    {dialogsElements}
-                </div>
-                <div className={css.messages}>
-                    {messagesElements}
-                    <div>
-                        <textarea ref={newReplica} onChange={draftReplica} value={props.value} placeholder='I HATE U!!11!11!'/>
-                        <button onClick={addReplica}>Послать</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+const Dialogs = connect(mapStateToProps, mapDispatchToProps)(DialogsTemplate);
 
 export default Dialogs;
