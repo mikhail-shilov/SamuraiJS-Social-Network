@@ -1,11 +1,11 @@
 .dialogs {
     display: grid;
     grid-template-columns: 2fr 10fr;
-    color: #fff;
+    color: #666;
     padding: 15px;
 }
 .dialogsItems a {
-    color: #fff;
+    color: #000;
 }
 .dialogsItems .active {
     color: #ccc;

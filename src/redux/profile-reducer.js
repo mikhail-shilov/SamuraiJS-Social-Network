@@ -16,22 +16,31 @@ const initalState = {
 };
 
 const profileReducer = (state = initalState, action) => {
-    // eslint-disable-next-line default-case
+
+    let localState = {...state,};
+
     switch (action.type) {
-        case 'UPDATE-DRAFT':
-            state.draftPost = action.text;
-            break;
-        case 'ADD-POST':
+        case 'UPDATE-DRAFT': {
+            localState.draftPost = action.text;
+            return localState;
+        }
+
+        case 'ADD-POST': {
+            localState.draftPost = state.draftPost;
             let newPost = {
                 id: 5,
-                message: state.draftPost,
+                message: localState.draftPost,
                 likeCount: 3
             };
-            state.posts.push(newPost);
-            state.draftPost = '';
-            break;
+            localState.posts = [newPost, ...state.posts];
+            //localState.posts.push(newPost);
+            localState.draftPost = '';
+            return localState;
+        }
+        default: {
+            return state;
+        }
     }
-    return state;
 };
 
 export default profileReducer;

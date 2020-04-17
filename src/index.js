@@ -9,28 +9,8 @@ import './index.css';
 import store from './redux/store'
 import App from './App';
 
-const updateDOM = (state) => {
-    ReactDOM.render(
-        <BrowserRouter>
-            <Provider store={store}>
-                <App
-                    state={state}
-                    dispatch={store.dispatch.bind(store)}
-                />
-            </Provider>
-        </BrowserRouter>,
-        document.getElementById('root')
-    );
-};
-
-updateDOM(store.getState());
-debugger;
-
-store.subscribe(() => {
-    const state = store.getState();
-    updateDOM(state);
-});
-debugger;
+ReactDOM.render(<BrowserRouter><Provider store={store}><App/></Provider></BrowserRouter>,
+    document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change
