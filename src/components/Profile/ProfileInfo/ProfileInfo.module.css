@@ -3,7 +3,7 @@
     align-items: center;     /*Центрирование по вертикали */
 
     height: 150px;
-    background-image: url("https://klike.net/uploads/posts/2019-01/1547367975_11.jpg") ;
+    background-image: url("/assets/1547367975_11.jpg") ;
     background-position: center;
     background-color: aquamarine;
 }

@@ -1,0 +1,63 @@
+.userRecord {
+    display: flex;
+    flex-direction: row;
+}
+
+.photoWrapper {
+    flex: 0 300px;
+    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0 0 0;
+}
+
+.photoWrapper > img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border: 1px solid salmon;
+
+}
+
+.statusWrapper {
+    flex: auto;
+    background-color: aquamarine;
+}
+
+.pageList {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 15px 15px 25px 15px;  /* Значение полей */
+    justify-content: left;
+}
+
+.pageList__item {
+    min-width: 28px;
+    display: inline; /* Отображать как строчный элемент */
+    margin-top: 5px;
+    margin-right: 6px;
+    border: 1px solid #444; /* Рамка вокруг текста */
+    padding: 1px; /* Поля вокруг текста */
+    text-align: center;
+
+}
+
+.pageList__item_active {
+    min-width: 28px;
+    display: inline; /* Отображать как строчный элемент */
+    margin-top: 5px;
+    margin-right: 6px;
+    border: 1px solid #444; /* Рамка вокруг текста */
+    padding: 1px; /* Поля вокруг текста */
+    text-align: center;
+    font-weight: bold;
+    background-color: salmon;
+}
+a {
+    cursor: pointer;
+}
+

@@ -10,6 +10,7 @@ import Dialogs from './components/DialogsPage/DialogsProps';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
+import UsersProps from "./components/Users/UsersProps";
 
 
 function App(props) {
@@ -20,6 +21,7 @@ function App(props) {
                 <main className={css.content}>
                     <Route path='/profile' component={Profile} />
                     <Route path='/dialogs' component={Dialogs}/>
+                    <Route path='/users' component={UsersProps}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>

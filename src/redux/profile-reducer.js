@@ -16,31 +16,26 @@ const initalState = {
 };
 
 const profileReducer = (state = initalState, action) => {
-
-    let localState = {...state,};
-
     switch (action.type) {
-        case 'UPDATE-DRAFT': {
-            localState.draftPost = action.text;
-            return localState;
-        }
-
-        case 'ADD-POST': {
-            localState.draftPost = state.draftPost;
+        case 'UPDATE-DRAFT':
+            return {
+                ...state,
+                draftPost: action.text
+            };
+        case 'ADD-POST':
             let newPost = {
                 id: 5,
-                message: localState.draftPost,
-                likeCount: 3
+                message: state.draftPost,
+                likeCount: 0
             };
-            localState.posts = [newPost, ...state.posts];
-            //localState.posts.push(newPost);
-            localState.draftPost = '';
-            return localState;
-        }
+            return {
+                ...state,
+                posts: [newPost, ...state.posts],
+                draftPost: ''
+            }
         default: {
             return state;
         }
     }
 };
-
 export default profileReducer;
