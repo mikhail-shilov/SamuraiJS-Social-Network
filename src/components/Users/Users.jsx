@@ -3,26 +3,34 @@ import css from './Users.module.css'
 import * as axios from "axios";
 import userpic from '../../assets/icon-user.svg'
 import Pagination from "./Pagination";
+import Preloader from "../Common/Preloader";
+import {setPage} from "../../redux/users-reducer";
 
 class Users extends React.Component {
     constructor(props) {
         super(props);
     }
+
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users/?page=' + this.props.currentPage).then(response => {
-            this.props.setUsers(response.data.items, response.data.totalCount);
-        });
+        this.props.SwitchIsFetching(true);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users/?page=' + this.props.currentPage)
+            .then(response => {
+                this.props.loadUsers(response.data.items, response.data.totalCount);
+                this.props.SwitchIsFetching(false);
+            });
     }
 
     render() {
         return <div>
             <Pagination
                 setPage={this.props.setPage}
-                updateUsers={this.props.setUsers}
+                updateUsers={this.props.loadUsers}
                 pageSize={this.props.pageSize}
                 totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
+                SwitchIsFetching={this.props.SwitchIsFetching}
             />
+            {this.props.isFetching ? <Preloader/> : null}
 
             {this.props.users.map(user =>
                 <div className={css.userRecord} key={user.id}>
@@ -45,7 +53,6 @@ class Users extends React.Component {
             )}
         </div>
     }
-
 
 
 }

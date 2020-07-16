@@ -1,7 +1,8 @@
-export const followAC = (id) => ({type: 'FOLLOW', userId: id});
-export const unFollowAC = (id) => ({type: 'UNFOLLOW', userId: id});
-export const loadUsersAC = (users, totalUsersCount) => ({type: 'LOAD-USERS', users: users, totalUsersCount: totalUsersCount});
-export const setPageAC = (page) => ({type: 'SET-PAGE', page: page});
+export const follow = (id) => ({type: 'FOLLOW', userId: id});
+export const unFollow = (id) => ({type: 'UNFOLLOW', userId: id});
+export const loadUsers = (users, totalUsersCount) => ({type: 'LOAD-USERS', users: users, totalUsersCount: totalUsersCount});
+export const setPageAC = (page) => ({type: 'SET-PAGE', page: page}); //AC в конце для примера
+export const SwitchIsFetching = (mode) => ({type: 'IS-FETCHING-SWITCH', mode});
 
 const initalState = {
     users: [
@@ -19,6 +20,7 @@ const initalState = {
     pageSize: 9,
     totalUsersCount: 0,
     currentPage: 1,
+    isFetching: true,
 };
 
 const usersReducer = (state = initalState, action) => {
@@ -54,7 +56,11 @@ const usersReducer = (state = initalState, action) => {
             return {
                 ...state,
                 currentPage: action.page,
-
+            }
+        case 'IS-FETCHING-SWITCH':
+            return {
+                ...state,
+                isFetching: action.mode,
             }
         default: {return state;}
     }

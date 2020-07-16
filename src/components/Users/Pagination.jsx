@@ -4,10 +4,13 @@ import * as axios from "axios";
 
 const Pagination = (props) => {
     const clickHandler = (page) => {
-        console.log('Вызов страницы '+page);
+        props.SwitchIsFetching(true);
+        props.updateUsers([], 0);
+
         axios.get('https://social-network.samuraijs.com/api/1.0/users/?page=' + page).then(response => {
             props.updateUsers(response.data.items, response.data.totalCount);
             props.setPage(page);
+            props.SwitchIsFetching(false);
         });
     };
 
