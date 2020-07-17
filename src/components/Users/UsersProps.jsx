@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
         totalUsersCount: state.usersPage.totalUsersCount,
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
+        isFetchingUsers: state.usersPage.isFetching,
     }
 };
 

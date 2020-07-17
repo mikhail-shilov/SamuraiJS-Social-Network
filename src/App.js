@@ -19,7 +19,7 @@ function App(props) {
                 <Header/>
                 <Navbar/>
                 <main className={css.content}>
-                    <Route path='/profile' component={ProfileContainer} />
+                    <Route path='/profile/:userId?' component={ProfileContainer} />
                     <Route path='/dialogs' component={Dialogs}/>
                     <Route path='/users' component={UsersProps}/>
                     <Route path='/news' component={News}/>

@@ -30,7 +30,7 @@ class Users extends React.Component {
                 currentPage={this.props.currentPage}
                 SwitchIsFetching={this.props.SwitchIsFetching}
             />
-            {this.props.isFetching ? <Preloader/> : null}
+            {this.props.isFetchingUsers ? <Preloader/> : null}
 
             {this.props.users.map(user =>
                 <div className={css.userRecord} key={user.id}>

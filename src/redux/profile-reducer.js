@@ -20,7 +20,8 @@ const initalState = {
 const profileReducer = (state = initalState, action) => {
     switch (action.type) {
         case 'SET-PROFILE':
-            return {...state, profileInfo: action.profileData};
+            return {...state, profileInfo: action.profileData,
+            };
         case 'UPDATE-DRAFT':
             return {
                 ...state,

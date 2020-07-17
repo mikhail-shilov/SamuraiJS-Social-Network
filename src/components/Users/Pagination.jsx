@@ -27,7 +27,7 @@ const Pagination = (props) => {
         <ul className={css.pageList}>
             {pages.map(
                 item => {
-                    return (<li className={(props.currentPage*1 === item*1) ? css.pageList__item_active : css.pageList__item}>
+                    return (<li key={item} className={(props.currentPage*1 === item*1) ? css.pageList__item_active : css.pageList__item}>
                         <a onClick={() => {clickHandler(item)}}>
                             {item}
                         </a>
