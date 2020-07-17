@@ -4,7 +4,7 @@ import * as axios from "axios";
 import userpic from '../../assets/icon-user.svg'
 import Pagination from "./Pagination";
 import Preloader from "../Common/Preloader";
-import {setPage} from "../../redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 class Users extends React.Component {
     constructor(props) {
@@ -35,14 +35,22 @@ class Users extends React.Component {
             {this.props.users.map(user =>
                 <div className={css.userRecord} key={user.id}>
                     <div className={css.photoWrapper}>
-                        <img src={(user.photos.small === null) ? userpic : user.photos.small}/>
-                        {user.followed ? <button onClick={() => {
-                                this.props.unFollow(user.id)
-                            }}>Unfollow</button>
-                            : <button onClick={() => {
-                                this.props.follow(user.id)
-                            }}>Follow</button>}
+                        <NavLink to={'/profile/' + user.id + '/'}>
+                            <img className={css.userPic}
+                                 src={(user.photos.small === null) ? userpic : user.photos.small}/>
+                        </NavLink>
+                        {
+                            user.followed ?
+                                <button onClick={() => {
+                                    this.props.unFollow(user.id)
+                                }}>Unfollow</button> :
+                                <button onClick={() => {
+                                    this.props.follow(user.id)
+                                }}>Follow</button>
+                        }
+
                     </div>
+
                     <div className={css.statusWrapper}>
                         <h1>{user.name}</h1>
                         <span>{user.status}</span>

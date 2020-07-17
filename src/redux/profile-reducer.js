@@ -1,7 +1,9 @@
+export const setUserProfile = (profileData) => ({type: 'SET-PROFILE', profileData});
 export const addPostActionCreator = () => ({type: 'ADD-POST'});
 export const updateDraftActionCreator = (text) => ({type: 'UPDATE-DRAFT', text: text});
 
 const initalState = {
+    profileInfo: null,
     posts: [
         {id: 1, message: 'Здравствуйте, я подключился', likeCount: 79},
         {id: 2, message: 'Месяц в сети', likeCount: 49},
@@ -17,6 +19,8 @@ const initalState = {
 
 const profileReducer = (state = initalState, action) => {
     switch (action.type) {
+        case 'SET-PROFILE':
+            return {...state, profileInfo: action.profileData};
         case 'UPDATE-DRAFT':
             return {
                 ...state,

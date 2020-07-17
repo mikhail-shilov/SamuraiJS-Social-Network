@@ -6,10 +6,11 @@ const ProfileInfo = (props) => {
         <div>
             <div className={css.cover}>
                 <a>
-                    <img className={css.ava} src='https://sun9-29.userapi.com/c855136/v855136608/6b22f/mO0bjdXJzIo.jpg'/>
+                    <img className={css.ava}
+                         src={!(props.profileInfo) ? 'https://sun9-29.userapi.com/c855136/v855136608/6b22f/mO0bjdXJzIo.jpg' : props.profileInfo.photos.small}/>
                 </a>
                 <a>
-                   %username%
+                    {!(props.profileInfo) ? '%username%' : props.profileInfo.fullName}
                 </a>
             </div>
             <div>
