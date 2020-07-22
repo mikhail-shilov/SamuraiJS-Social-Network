@@ -13,11 +13,7 @@ class Users extends React.Component {
     }
 
     componentDidMount() {
-        this.props.SwitchIsFetching(true);
-        getUser(this.props.pageSize, this.props.currentPage).then(data => {
-                this.props.loadUsers(data.items, data.totalCount);
-                this.props.SwitchIsFetching(false);
-            });
+        this.props.getUsersThunk(this.props.pageSize, this.props.currentPage);
     }
 
     render() {
@@ -29,6 +25,7 @@ class Users extends React.Component {
                 totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
                 SwitchIsFetching={this.props.SwitchIsFetching}
+                getUsers={this.props.getUsersThunk}
             />
             {this.props.isFetchingUsers ? <Preloader/> : null}
             {this.props.users.map(user =>
@@ -40,57 +37,58 @@ class Users extends React.Component {
                         </NavLink>
                         {
                             user.followed ?
-                                <button disabled={this.props.isFollowing.some((userId) => userId === user.id)} onClick={() => {
-                                    //this.props.SwitchIsFetching(true);
-                                    this.props.SwitchIsFollowing(true, user.id);
+                                <button disabled={this.props.isFollowing.some((userId) => userId === user.id)}
+                                        onClick={() => {
+                                            //this.props.SwitchIsFetching(true);
+                                            this.props.SwitchIsFollowing(true, user.id);
 
-                                    unFollow(user.id)
-                                        .then(data => {
-                                            if (data.resultCode === 0) {
-                                                console.log('Сервер подтвердил отписку! Ура!')
-                                                this.props.unFollow(user.id)
-                                            } else {
-                                                console.log('Что-то пошло не так... Сервер не подтвердил отписку.')
-                                            }
-                                            //this.props.SwitchIsFetching(false);
-                                            this.props.SwitchIsFollowing(false, user.id);
-                                        });
-                                }}>Unfollow</button>
+                                            unFollow(user.id)
+                                                .then(data => {
+                                                    if (data.resultCode === 0) {
+                                                        this.props.unFollow(user.id)
+                                                    } else {
+                                                        console.log('Что-то пошло не так... Сервер не подтвердил отписку.')
+                                                    }
+                                                    //this.props.SwitchIsFetching(false);
+                                                    this.props.SwitchIsFollowing(false, user.id);
+                                                });
+                                        }}>Unfollow</button>
                                 :
-                                <button disabled={this.props.isFollowing.some((userId) => userId === user.id)} onClick={() => {
-                                    //this.props.SwitchIsFetching(true);
-                                    this.props.SwitchIsFollowing(true, user.id);
-                                    follow(user.id)
-                                        .then(data => {
-                                            console.log(user.followed);
-                                            if (data.resultCode === 0) {
-                                                console.log('Сервер подтвердил подписку! Ура!')
-                                                this.props.follow(user.id)
-                                            } else {
-                                                console.log('Что-то пошло не так... Сервер не подтвердил подписку.')
-                                            }
-                                            //this.props.SwitchIsFetching(false);
-                                            this.props.SwitchIsFollowing(false, user.id);
+                                <button disabled={this.props.isFollowing.some((userId) => userId === user.id)}
+                                        onClick={() => {
+                                            //this.props.SwitchIsFetching(true);
+                                            this.props.SwitchIsFollowing(true, user.id);
+                                            follow(user.id)
+                                                .then(data => {
+                                                    console.log(user.followed);
+                                                    if (data.resultCode === 0) {
+                                                        console.log('Сервер подтвердил подписку! Ура!')
+                                                        this.props.follow(user.id)
+                                                    } else {
+                                                        console.log('Что-то пошло не так... Сервер не подтвердил подписку.')
+                                                    }
+                                                    //this.props.SwitchIsFetching(false);
+                                                    this.props.SwitchIsFollowing(false, user.id);
 
-                                        });
-                                }}>Follow</button>
-                                }
+                                                });
+                                        }}>Follow</button>
+                        }
 
-                            </div>
+                    </div>
 
-                            <div className={css.statusWrapper}>
-                            <h1>{user.name}</h1>
-                            <span>{user.status}</span>
+                    <div className={css.statusWrapper}>
+                        <h1>{user.name}</h1>
+                        <span>{user.status}</span>
 
-                            </div>
+                    </div>
 
-                            </div>
-                            )}
-                            </div>
-                            }
-
-
-                            }
+                </div>
+            )}
+        </div>
+    }
 
 
-                            export default Users;
+}
+
+
+export default Users;
