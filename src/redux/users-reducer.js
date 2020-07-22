@@ -3,6 +3,7 @@ export const unFollow = (id) => ({type: 'UNFOLLOW', userId: id});
 export const loadUsers = (users, totalUsersCount) => ({type: 'LOAD-USERS', users: users, totalUsersCount: totalUsersCount});
 export const setPageAC = (page) => ({type: 'SET-PAGE', page: page}); //AC в конце для примера
 export const SwitchIsFetching = (mode) => ({type: 'IS-FETCHING-SWITCH', mode});
+export const SwitchIsFollowing = (mode, userId) => ({type: 'IS-FOLLOWING-SWITCH', mode , userId});
 
 const initalState = {
     users: [
@@ -17,10 +18,11 @@ const initalState = {
             },
         },
     ],
-    pageSize: 9,
+    pageSize: 90,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: false,
+    isFollowing: []
 };
 
 const usersReducer = (state = initalState, action) => {
@@ -61,6 +63,11 @@ const usersReducer = (state = initalState, action) => {
             return {
                 ...state,
                 isFetching: action.mode,
+            }
+        case 'IS-FOLLOWING-SWITCH':
+            return {
+                ...state,
+                isFollowing: action.mode ? [...state.isFollowing, action.userId] : state.isFollowing.filter(id => id!=action.userId)
             }
         default: {return state;}
     }

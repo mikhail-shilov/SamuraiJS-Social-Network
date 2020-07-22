@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux';
 import Users from "./Users";
-import {follow, loadUsers, unFollow, setPageAC, SwitchIsFetching} from "../../redux/users-reducer";
+import {follow, loadUsers, unFollow, setPageAC, SwitchIsFetching, SwitchIsFollowing} from "../../redux/users-reducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         currentPage: state.usersPage.currentPage,
         isFetchingUsers: state.usersPage.isFetching,
+        isFollowing: state.usersPage.isFollowing,
     }
 };
 
@@ -36,7 +37,7 @@ const mapDispatchToProps = (dispatch) => {
     })
 };*/
 
-const mapDispatchToProps = {follow, loadUsers, unFollow, setPage: setPageAC, SwitchIsFetching};
+const mapDispatchToProps = {follow, loadUsers, unFollow, setPage: setPageAC, SwitchIsFetching, SwitchIsFollowing};
 
 
 const UsersProps = connect(mapStateToProps, mapDispatchToProps)(Users);

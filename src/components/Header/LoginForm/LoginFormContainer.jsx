@@ -1,18 +1,16 @@
 import React from "react";
-import * as axios from "axios";
 import {loginIsFetching, setUserData} from "../../../redux/login-reducer";
 import {connect} from "react-redux";
-import Preloader2 from "../../Common/Preloader2";
+import {NavLink} from "react-router-dom";
+import {authMe} from "../../../api/api";
 
 class LoginFormContainer extends React.Component {
     componentDidMount() {
         this.props.loginIsFetching(true);
-        axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true}) //9326
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let {id, login, email} = response.data.data;
+        authMe().then(data => {
+                if (data.resultCode === 0) {
+                    let {id, login, email} = data.data;
                     this.props.setUserData(id, login, email);
-
                 }
                 this.props.loginIsFetching(false);
             });
@@ -28,9 +26,12 @@ class LoginFormContainer extends React.Component {
               Итого - ОДИНАКОВЫЕ НАЗВАНИЯ СВИЧКЕЙСОВ В РАЗНЫХ РЕДЬЮСЕРАХ
               */
         } else {
+            const linkToProfile = (id, login) => {
+                return (<NavLink to={'/profile/'+id}>Здравствуйте, {login}</NavLink>)
+            }
             return (
                 <div className='loginForm'>
-                    {this.props.isAuthorized ? "ТЫ" + this.props.login : "НЕТ"}
+                    {this.props.isAuthorized ? linkToProfile(this.props.userId, this.props.login) : "НЕТ"}
                 </div>);
         }
     }
