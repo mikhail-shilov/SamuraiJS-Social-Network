@@ -2,12 +2,13 @@ import React from "react";
 import {loginIsFetching, setUserData} from "../../../redux/login-reducer";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {authMe} from "../../../api/api";
+import {authAPI} from '../../../api/api'
+
 
 class LoginFormContainer extends React.Component {
     componentDidMount() {
         this.props.loginIsFetching(true);
-        authMe().then(data => {
+        authAPI.me().then(data => {
                 if (data.resultCode === 0) {
                     let {id, login, email} = data.data;
                     this.props.setUserData(id, login, email);
@@ -22,7 +23,7 @@ class LoginFormContainer extends React.Component {
         if (this.props.isFetching) {
             return (<div className='loginForm'>Загрузка...</div>)
             /*ОЧЕНЬ долго пытался понять почему постоянно выводятся оба преладера.
-              загрузке текущего юзеера и в загрузке профиля или списка
+              загрузке текущего юзера и в загрузке профиля или списка
               Итого - ОДИНАКОВЫЕ НАЗВАНИЯ СВИЧКЕЙСОВ В РАЗНЫХ РЕДЬЮСЕРАХ
               */
         } else {
@@ -31,7 +32,7 @@ class LoginFormContainer extends React.Component {
             }
             return (
                 <div className='loginForm'>
-                    {this.props.isAuthorized ? linkToProfile(this.props.userId, this.props.login) : "НЕТ"}
+                    {this.props.isAuthorized ? linkToProfile(this.props.userId, this.props.login) : <a href='https://social-network.samuraijs.com/login'>Войти</a>}
                 </div>);
         }
     }

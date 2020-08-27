@@ -1,12 +1,8 @@
-import React from "react";
 import {connect} from 'react-redux';
 import Users from "./Users";
 import {
     follow,
-    setUsers,
     unFollow,
-    setPageAC,
-    SwitchIsFetching,
     SwitchIsFollowing,
     getUsersThunk
 } from "../../redux/users-reducer";

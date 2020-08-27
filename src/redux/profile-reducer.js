@@ -1,6 +1,4 @@
-export const setUserProfile = (profileData) => ({type: 'SET-PROFILE', profileData});
-export const addPostActionCreator = () => ({type: 'ADD-POST'});
-export const updateDraftActionCreator = (text) => ({type: 'UPDATE-DRAFT', text: text});
+import {usersAPI} from "../api/api";
 
 const initalState = {
     profileInfo: null,
@@ -20,7 +18,8 @@ const initalState = {
 const profileReducer = (state = initalState, action) => {
     switch (action.type) {
         case 'SET-PROFILE':
-            return {...state, profileInfo: action.profileData,
+            return {
+                ...state, profileInfo: action.profileData,
             };
         case 'UPDATE-DRAFT':
             return {
@@ -43,4 +42,18 @@ const profileReducer = (state = initalState, action) => {
         }
     }
 };
+
+
+const setUserProfile = (profileData) => ({type: 'SET-PROFILE', profileData});
+export const getProfile = (profileId) => (dispatch) => {
+    dispatch(setUserProfile(null));
+    usersAPI.getProfile(profileId).then(response => {
+            dispatch(setUserProfile(response));
+        }
+    )
+};
+export const addPostActionCreator = () => ({type: 'ADD-POST'});
+export const updateDraftActionCreator = (text) => ({type: 'UPDATE-DRAFT', text: text});
+
+
 export default profileReducer;

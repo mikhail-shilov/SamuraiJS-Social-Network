@@ -62,7 +62,9 @@ const usersReducer = (state = initalState, action) => {
         case 'IS-FOLLOWING-SWITCH':
             return {
                 ...state,
-                isFollowing: action.mode ? [...state.isFollowing, action.userId] : state.isFollowing.filter(id => id != action.userId)
+                isFollowing: action.mode ?
+                    [...state.isFollowing, action.userId] :
+                    state.isFollowing.filter(id => id !== action.userId)
             }
         default: {
             return state;
@@ -80,7 +82,6 @@ export const setUsers = (users, totalUsersCount) => ({
 export const setPageAC = (page) => ({type: 'SET-PAGE', page: page}); //AC в конце для примера
 export const SwitchIsFetching = (mode) => ({type: 'IS-FETCHING-SWITCH', mode});
 export const SwitchIsFollowing = (mode, userId) => ({type: 'IS-FOLLOWING-SWITCH', mode, userId});
-
 export const getUsersThunk = (pageSize, pageNumber) => (dispatch) => {
     dispatch(SwitchIsFetching(true));
     samuraiSocialAPI.getUser(pageSize, pageNumber).then(data => {
@@ -89,7 +90,5 @@ export const getUsersThunk = (pageSize, pageNumber) => (dispatch) => {
         dispatch(SwitchIsFetching(false));
     })
 }
-
-
 export default usersReducer;
 

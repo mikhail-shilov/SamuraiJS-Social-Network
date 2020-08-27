@@ -1,6 +1,5 @@
 import React from "react";
 import css from './Users.module.css'
-import * as axios from "axios";
 import userpic from '../../assets/icon-user.svg'
 import Pagination from "./Pagination";
 import Preloader from "../Common/Preloader";
@@ -20,7 +19,6 @@ class Users extends React.Component {
         return <div>
             <Pagination
                 setPage={this.props.setPage}
-                updateUsers={this.props.loadUsers}
                 pageSize={this.props.pageSize}
                 totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
@@ -39,7 +37,6 @@ class Users extends React.Component {
                             user.followed ?
                                 <button disabled={this.props.isFollowing.some((userId) => userId === user.id)}
                                         onClick={() => {
-                                            //this.props.SwitchIsFetching(true);
                                             this.props.SwitchIsFollowing(true, user.id);
 
                                             unFollow(user.id)
@@ -49,7 +46,6 @@ class Users extends React.Component {
                                                     } else {
                                                         console.log('Что-то пошло не так... Сервер не подтвердил отписку.')
                                                     }
-                                                    //this.props.SwitchIsFetching(false);
                                                     this.props.SwitchIsFollowing(false, user.id);
                                                 });
                                         }}>Unfollow</button>
@@ -69,19 +65,14 @@ class Users extends React.Component {
                                                     }
                                                     //this.props.SwitchIsFetching(false);
                                                     this.props.SwitchIsFollowing(false, user.id);
-
                                                 });
                                         }}>Follow</button>
                         }
-
                     </div>
-
                     <div className={css.statusWrapper}>
                         <h1>{user.name}</h1>
                         <span>{user.status}</span>
-
                     </div>
-
                 </div>
             )}
         </div>
@@ -92,3 +83,5 @@ class Users extends React.Component {
 
 
 export default Users;
+
+
