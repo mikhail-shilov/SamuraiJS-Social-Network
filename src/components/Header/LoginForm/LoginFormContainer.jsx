@@ -15,9 +15,7 @@ class LoginFormContainer extends React.Component {
                 }
                 this.props.loginIsFetching(false);
             });
-
     }
-
 
     render() {
         if (this.props.isFetching) {
@@ -28,7 +26,7 @@ class LoginFormContainer extends React.Component {
               */
         } else {
             const linkToProfile = (id, login) => {
-                return (<NavLink to={'/profile/'+id}>Здравствуйте, {login}</NavLink>)
+                return (<NavLink to={'/profile/'+id+'/'}>Здравствуйте, {login}</NavLink>)
             }
             return (
                 <div className='loginForm'>

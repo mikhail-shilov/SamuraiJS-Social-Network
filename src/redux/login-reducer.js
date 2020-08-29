@@ -1,11 +1,6 @@
-export const setUserData = (userId, login, email) => ({type: 'SET-USER-DATA', data: {userId,login,email}});
-export const loginIsFetching = (mode) => ({type: 'IS-FETCHING-SWITCH-LOGIN', mode});
-
 const initalState = {
-    isFetchingLogin: false,
-    userId: null,
-    login: null,
-    email: null,
+    isLogging: false,
+    data: null,
     isAuthorized: false,
 };
 
@@ -16,6 +11,7 @@ const loginReducer = (state = initalState, action) => {
                 ...state,
                 ...action.data,
                 isAuthorized: true
+
             }
         case 'IS-FETCHING-SWITCH-LOGIN':
             return {
@@ -25,4 +21,8 @@ const loginReducer = (state = initalState, action) => {
         default: {return state;}
     }
 };
+
+export const setUserData = (userId, login, email) => ({type: 'SET-USER-DATA', data: {userId,login,email}});
+export const loginIsFetching = (mode) => ({type: 'IS-FETCHING-SWITCH-LOGIN', mode});
+
 export default loginReducer;

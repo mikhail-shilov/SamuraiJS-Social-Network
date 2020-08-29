@@ -4,7 +4,7 @@ import userpic from '../../assets/icon-user.svg'
 import Pagination from "./Pagination";
 import Preloader from "../Common/Preloader";
 import {NavLink} from "react-router-dom";
-import {follow, getUser, unFollow} from "../../api/api";
+import {follow, unFollow} from "../../api/api";
 
 class Users extends React.Component {
     constructor(props) {
@@ -22,7 +22,6 @@ class Users extends React.Component {
                 pageSize={this.props.pageSize}
                 totalUsersCount={this.props.totalUsersCount}
                 currentPage={this.props.currentPage}
-                SwitchIsFetching={this.props.SwitchIsFetching}
                 getUsers={this.props.getUsersThunk}
             />
             {this.props.isFetchingUsers ? <Preloader/> : null}
