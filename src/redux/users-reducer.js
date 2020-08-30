@@ -1,4 +1,4 @@
-import {SamuraiSocialAPI as samuraiSocialAPI} from "../api/api";
+import {usersAPI} from "../api/api";
 
 const initalState = {
     users: [
@@ -84,7 +84,7 @@ export const SwitchIsFetching = (mode) => ({type: 'IS-FETCHING-SWITCH', mode});
 export const SwitchIsFollowing = (mode, userId) => ({type: 'IS-FOLLOWING-SWITCH', mode, userId});
 export const getUsersThunk = (pageSize, pageNumber) => (dispatch) => {
     dispatch(SwitchIsFetching(true));
-    samuraiSocialAPI.getUser(pageSize, pageNumber).then(data => {
+    usersAPI.getUser(pageSize, pageNumber).then(data => {
         dispatch(setPageAC(pageNumber));
         dispatch(setUsers(data.items, data.totalCount));
         dispatch(SwitchIsFetching(false));

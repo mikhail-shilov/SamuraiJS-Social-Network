@@ -7,9 +7,11 @@
     background-position: center;
     background-color: aquamarine;
 }
-.cover a {
+.cover span {
+    font-size: 1.2rem;
     color: white;
     margin: auto 0.5em ;
+    display: block;
 }
 .ava {
     height: 80px;

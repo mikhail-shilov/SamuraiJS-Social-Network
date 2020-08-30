@@ -4,7 +4,7 @@ import userpic from '../../assets/icon-user.svg'
 import Pagination from "./Pagination";
 import Preloader from "../Common/Preloader";
 import {NavLink} from "react-router-dom";
-import {follow, unFollow} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 class Users extends React.Component {
     constructor(props) {
@@ -38,7 +38,7 @@ class Users extends React.Component {
                                         onClick={() => {
                                             this.props.SwitchIsFollowing(true, user.id);
 
-                                            unFollow(user.id)
+                                            usersAPI.unFollow(user.id)
                                                 .then(data => {
                                                     if (data.resultCode === 0) {
                                                         this.props.unFollow(user.id)
@@ -53,7 +53,7 @@ class Users extends React.Component {
                                         onClick={() => {
                                             //this.props.SwitchIsFetching(true);
                                             this.props.SwitchIsFollowing(true, user.id);
-                                            follow(user.id)
+                                            usersAPI.follow(user.id)
                                                 .then(data => {
                                                     console.log(user.followed);
                                                     if (data.resultCode === 0) {

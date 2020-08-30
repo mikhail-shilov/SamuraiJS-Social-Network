@@ -7,6 +7,12 @@ const samuraiApi = axios.create({
     }
 );
 
+export const authAPI = {
+    me() {
+        return samuraiApi.get(`auth/me`).then(response => response.data)
+    }
+}
+
 export const usersAPI = {
     getUser (pageSize = 10, currentPage = 1) {
         return samuraiApi.get(`users/?page=${currentPage}&count=${pageSize}`).then(response => response.data)
@@ -20,42 +26,5 @@ export const usersAPI = {
     getProfile (userId = 2) {
         return samuraiApi.get(`profile/${userId}`).then(response => response.data)
     }
-}
 
-export const authAPI = {
-    me() {
-        return samuraiApi.get(`auth/me`).then(response => response.data)
-    }
-}
-
-
-
-
-
-export const getUser = (pageSize = 10, currentPage = 1) => {
-    return samuraiApi.get(`users/?page=${currentPage}&count=${pageSize}`).then(response => response.data)
-}
-
-export const getProfile = (userId = 2) => {
-    return samuraiApi.get(`profile/${userId}`).then(response => response.data)
-}
-
-export const authMe = () => {
-    return samuraiApi.get(`auth/me`).then(response => response.data)
-}
-
-export const follow = (userId) => {
-    return samuraiApi.post(`follow/${userId}`).then(response => response.data)
-}
-
-export const unFollow = (userId) => {
-    return samuraiApi.delete(`follow/${userId}`).then(response => response.data)
-}
-
-export const SamuraiSocialAPI = {
-    getUser(pageSize = 10, currentPage = 1) {return samuraiApi.get(`users/?page=${currentPage}&count=${pageSize}`).then(response => response.data)},
-    getProfile(userId = 2) {return samuraiApi.get(`profile/${userId}`).then(response => response.data)},
-    authMe() {return samuraiApi.get(`auth/me`).then(response => response.data)},
-    unFollow(userId) {return samuraiApi.delete(`follow/${userId}`).then(response => response.data)},
-    follow(userId) {return samuraiApi.post(`follow/${userId}`).then(response => response.data)},
 }

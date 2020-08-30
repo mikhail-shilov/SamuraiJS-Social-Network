@@ -6,6 +6,8 @@ import {
     SwitchIsFollowing,
     getUsersThunk
 } from "../../redux/users-reducer";
+import {compose} from "redux";
+import withAuthCheck from "../../hoc/withAuthCheck";
 
 const mapStateToProps = (state) => {
     return {
@@ -18,33 +20,7 @@ const mapStateToProps = (state) => {
     }
 };
 
-/*
-Неоптимизированный вариант mapDispatchToProps. Можно сильно уменьшить объём кода передавая объект со списком AC
-
-const mapDispatchToProps = (dispatch) => {
-    return ({
-        follow: (id) => {
-            dispatch(followAC(id));
-        },
-        unFollow: (id) => {
-            dispatch(unFollowAC(id));
-        },
-        setUsers: (users, totalUsersCount) => {
-            dispatch(loadUsersAC(users, totalUsersCount));
-        },
-        setPage: (page) => {
-            dispatch(setPageAC(page));
-        },
-        SwitchIsFetching: (mode) => {
-            dispatch(isFetchingSwitchAC(mode));
-        },
-    })
-};*/
-
-const mapDispatchToProps = {follow,  unFollow, SwitchIsFollowing, getUsersThunk};
-
-
-const UsersProps = connect(mapStateToProps, mapDispatchToProps)(Users);
-//при одинаковом названии пропса и AC - можно не писать "setPage: setPageAC" (оставлено для примера)
-
-export default UsersProps;
+export default compose(
+    connect(mapStateToProps, {follow,  unFollow, SwitchIsFollowing, getUsersThunk}),
+    withAuthCheck
+)(Users);
