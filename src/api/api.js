@@ -10,21 +10,41 @@ const samuraiApi = axios.create({
 export const authAPI = {
     me() {
         return samuraiApi.get(`auth/me`).then(response => response.data)
-    }
+    },
+    login(email, password, rememberMe) {
+
+        return samuraiApi.post(`auth/login/`, {
+            email: email,
+            password: password,
+            rememberMe: rememberMe,
+        }).then(response => response.data.data.userId)
+    },
 }
 
 export const usersAPI = {
-    getUser (pageSize = 10, currentPage = 1) {
+    getUser(pageSize = 10, currentPage = 1) {
         return samuraiApi.get(`users/?page=${currentPage}&count=${pageSize}`).then(response => response.data)
     },
-    follow (userId) {
+    follow(userId) {
         return samuraiApi.post(`follow/${userId}`).then(response => response.data)
     },
-    unFollow (userId) {
+    unFollow(userId) {
         return samuraiApi.delete(`follow/${userId}`).then(response => response.data)
     },
-    getProfile (userId = 2) {
-        return samuraiApi.get(`profile/${userId}`).then(response => response.data)
+    getProfile(userId = 2) {
+        console.warn('Bad way. Use profileAPI.')
+        return profileAPI.getProfile(userId); //Для обратной совместимости.
     }
+}
+export const profileAPI = {
+    getProfile(userId = 2) {
+        return samuraiApi.get(`profile/${userId}`).then(response => response.data)
+    },
+    getUserStatus(userId) {
+        return samuraiApi.get(`profile/status/${userId}`)
+    },
+    setUserStatus(statusText) {
+        return samuraiApi.put(`profile/status/`, {status: statusText}).then(response => response.data)
+    },
 
 }
