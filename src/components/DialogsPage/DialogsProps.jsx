@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import DialogsTemplate from "./DialogsTemplate";
 import {addMessageActionCreator, updateMessageDraftActionCreator} from "../../redux/dialog-reducer";
+import {startSubmit} from "redux-form";
 
 const mapStateToProps = (state) => {
     return {

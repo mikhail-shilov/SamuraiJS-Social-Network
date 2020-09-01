@@ -1,67 +1,63 @@
 import React from "react";
-
 import css from './Dialogs.module.css';
 
 import Message from "./Message/Message";
 import Dialog from "./Dialogs/Dialog";
-
-
-
-
-
+import {Field, reduxForm} from "redux-form";
 
 
 const DialogsTemplate = (props) => {
 
-    const draftReplica = (event) => {
-        const text = event.target.value;
-        console.log('text2');
-        console.log(text);
-        props.draftUpdate(text);
-    };
-    const addReplica = () => {
-        props.addMessage();
-    };
-    const keyHandler = (event) => {
-        console.log(event);
-        if (event.key === 'Enter') {
-            if (!event.shiftKey) {
-                event.preventDefault();
-                addReplica();
-            } else {
-                event.preventDefault();
-                const text = event.target.value+'\n';
-                props.draftUpdate(text);
-            }
-        }
-    };
+    const handleSubmit = (formData) => {
+        console.log(formData);
+        //props.addMessage();
+    }
 
     const dialogsElements = props.dialogs.map(dialog => <Dialog name={dialog.name} link={dialog.id}/>);
-
-
-    const messagesElements = props.messages.map(message => <Message text={message.msg} />);
+    const messagesElements = props.messages.map(message => <Message text={message.msg}/>);
 
     return (
-        <div>
-            <div className={css.dialogs}>
-                <div className={css.dialogsItems}>
-                    {dialogsElements}
-                </div>
-                <div className={css.messages}>
+        <div className={css.dialogs}>
+            <div className={css.dialogsItems}>
+                {dialogsElements}
+            </div>
+            <div className={css.messages}>
+                <div>
                     {messagesElements}
-                    <div>
-                        <textarea
-                            autoFocus
-                            onChange={draftReplica}
-                            onKeyPress={keyHandler}
-                            value={props.value}
-                            placeholder='I HATE U!!11!11!'/>
-                        <button onClick={addReplica}>Послать</button>
-                    </div>
+                </div>
+                <div>
+                    <AddMessageForm onSubmit={handleSubmit}/>
                 </div>
             </div>
         </div>
     )
 
 };
+
+let AddMessageForm = props => {
+
+    const keyHandler = (event) => {
+        if (event.key === 'Enter') {
+            if (!event.shiftKey) {
+                event.preventDefault();
+                props.handleSubmit();
+            }
+        }
+    };
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field
+                onKeyPress={keyHandler}
+                name={'message'}
+                component={'textarea'}
+                autoFocus
+                placeholder='I HATE U!!11!11!'/>
+            <button type="submit">Send</button>
+        </form>
+    )
+}
+AddMessageForm = reduxForm({form: 'addMessageForm'})(AddMessageForm);
+
+
 export default DialogsTemplate;

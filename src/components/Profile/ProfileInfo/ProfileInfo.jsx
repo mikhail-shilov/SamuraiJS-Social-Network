@@ -24,7 +24,7 @@ const ProfileInfo = (props) => {
                     </a>
                     <div>
                         <span>{!(props.profileInfo) ? '%username%' : props.profileInfo.fullName}</span>
-                        <UserStatus status={'МЯУ!1!1111!!!!1'}/>
+                        <UserStatus status={props.userStatus} putUserStatus={props.putUserStatus}/>
                     </div>
                 </div>
 

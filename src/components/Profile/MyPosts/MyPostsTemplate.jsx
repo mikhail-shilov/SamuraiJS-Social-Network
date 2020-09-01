@@ -1,26 +1,40 @@
 import React from "react";
 import Post from './Post/Post';
-
 import css from './MyPosts.module.css';
+import {Field, reduxForm} from "redux-form";
+
+let MyPostsForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <Field
+                component={'textarea'}
+                name={'message'}
+                autoFocus
+                placeholder='Что (твориться)?'
+            />
+            <button>Submit</button>
+
+        </form>
+    )
+}
+MyPostsForm  = reduxForm({form: 'myPostsForm'})(MyPostsForm);
+
 
 const MyPostsTemplate = (props) => {
+    const submitHandler = (formData) => {
+        console.log(formData.message);
+        //props.addPost(formData.message);
+    }
 
-    const handleSubmit = () => {
-        props.addPost();
-    };
-    const handleChange = (event) => {
-        const text = event.target.value;
-        props.draftUpdate(text);
-    };
     const handleKeyboard = (event) => {
         if (event.key === 'Enter') {
             if (!event.shiftKey) {
                 event.preventDefault();
-                handleSubmit();
+                //handleSubmit();
             } else {
                 event.preventDefault();
-                const text = event.target.value+'\n';
-                props.draftUpdate(text);
+                const text = event.target.value + '\n';
+                //props.draftUpdate(text);
             }
         }
     };
@@ -31,15 +45,8 @@ const MyPostsTemplate = (props) => {
         <div className={css.feed}>
             <div className={css.item}><h3>Самоизолента:</h3></div>
             <div className={css.item}>
-                <textarea
-                    autoFocus
-                    onChange={handleChange}
-                    onKeyPress={handleKeyboard}
-                    value={props.value}
-                    placeholder='Что (твориться)?'
-                />
+                <MyPostsForm onSubmit={submitHandler}/>
             </div>
-            <button onClick={handleSubmit }>Submit</button>
             <div>
                 {posts}
             </div>

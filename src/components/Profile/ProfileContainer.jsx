@@ -1,7 +1,7 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfile} from "../../redux/profile-reducer";
+import {getProfile, getUserStatus, putUserStatus} from "../../redux/profile-reducer";
 import withAuthCheck from "../../hoc/withAuthCheck";
 import {compose} from "redux";
 
@@ -10,6 +10,7 @@ class ProfileContainer extends React.Component {
         let userId = this.props.match.params.userId;
         if (!this.props.match.params.userId) userId = 2;
         this.props.getProfile(userId);
+        this.props.getUserStatus(userId);
     }
 
     render() {
@@ -17,9 +18,12 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => ({profileInfo: state.profilePage.profileInfo, currentUser: state.login.userId});
+let mapStateToProps = (state) => ({
+    profileInfo: state.profilePage.profileInfo,
+    userStatus: state.profilePage.status,
+    currentUser: state.login.userId});
 
 export default compose(
-    connect(mapStateToProps, {getProfile}),
+    connect(mapStateToProps, {getProfile, getUserStatus, putUserStatus}),
     withAuthCheck
 )(ProfileContainer);
